@@ -1,0 +1,71 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+//单链表的结构定义 
+typedef struct LNode
+{
+	int data;			//data存放结点数据域 
+	struct LNode *next;	//指向后继结点的指针 
+}LNode;					//定义单链表结点类型 
+
+
+//头插法建立单链表
+void createlistF(LNode *&L, int a[], int n)
+{
+	LNode *s;
+	int i;
+	L = (LNode*)malloc(sizeof(LNode));
+	L ->next = NULL;
+	for(i=0;i<n;++i)
+	{
+		s = (LNode*)malloc(sizeof(LNode));
+		s ->data = a[i];
+		//下面两句为头插法的关键步骤 
+		s ->next = L ->next;	//s所指新结点的指针域next指向L中的开始结点 
+		L ->next = s;			//头结点的指针域next指向s结点，使得s成为新的开始结点 
+		
+	}
+	
+ } 
+ 
+ //打印链表数据 
+ void printfList(LNode *L)
+ {
+ 	LNode *temp = L;
+	int count = 0;		
+	printf("表中的元素为:\n");
+	while(temp->next)
+	{
+		temp = temp->next;
+		printf("%d\t",temp->data);
+		count++;
+		if(count%5==0)		
+		{
+			printf("\n");
+		}
+	}
+	printf("\n");
+
+ }
+ 
+ int main()
+ {
+ 	LNode *L;
+ 	int n;
+ 	printf("请输入数组的个数："); 
+ 	scanf("%d",&n);
+ 	int a[n];
+ 	printf("请输入数组中的数(用空格分开)：\n");
+ 	for(int i=0;i<n;++i)
+ 	{
+ 		scanf("%d",&a[i]);
+	}
+	
+	//测试头插法建立链表
+	createlistF(L,a,n);
+	
+	//查看建立后的链表 
+	printfList(L);
+	
+	return 0;
+ }
